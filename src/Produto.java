@@ -7,8 +7,7 @@ public class Produto {
 
     private String nomeProduto;
     private int parcelas;
-    private double valor;
-    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    private double valor;    
 
     public Produto(String n, Double v){
         setProduto(n, v);
