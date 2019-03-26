@@ -5,7 +5,10 @@
  */
 package academiahybris;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -20,8 +23,10 @@ public class AcademiaHybris {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Pedido p = new Pedido();
-        ItemPedido itemPedido = new ItemPedido();
+        ItemPedido itemPedido;
+        Parcela parcela;
         ArrayList itensPed = new ArrayList<ItemPedido>();
+        ArrayList parcelasPed = new ArrayList<Parcela>();
         
         System.out.println("Data:");
         String d = scanner.next();
@@ -35,22 +40,24 @@ public class AcademiaHybris {
         String ende = scanner.next();
         p.setEndereco(ende);
         
-        System.out.println("Quantidade Itens:");
-        Integer qtItem = scanner.nextInt();
-        
-        for(int i=0;i<qtItem;i++){
+        String item = null;
+        do{
+            itemPedido = new ItemPedido();
             System.out.println("Item do pedido:");
-            String item = scanner.next();
+            item = scanner.next();
+            if(item.equals("exit")){
+                break;
+            }
             itemPedido.setProduto(item);
             System.out.println("Valor do Item:");
             Float valor = scanner.nextFloat();
             itemPedido.setValor(valor);
             itensPed.add(itemPedido);
-        }
+            itemPedido = null;
+        }while(!item.equals("exit"));
         
         System.out.println("Parcelas:");
-        Integer parc = scanner.nextInt();
-        p.setParcelas(parc);
+        Integer qtdeParc = scanner.nextInt();
         
         Float total = (float) 0.00;
         for(int i = 0; i < itensPed.size(); i++){
@@ -58,7 +65,28 @@ public class AcademiaHybris {
             Float val = itemPedido.getValor();
             total = total + val;
         }
-        Float valorParcelas = total/p.getParcelas();
+        
+        Float valorParcelas = total/qtdeParc;
+        parcela = new Parcela();
+        Date data = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(data);
+
+        c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH));
+        c.set(Calendar.MONTH, c.get(Calendar.MONTH));
+        c.set(Calendar.YEAR, c.get(Calendar.YEAR));
+
+        parcela.setDataParc(new SimpleDateFormat("dd/MM/yyyy").format(c.getTime()));
+        
+        for(int i = 0; i< qtdeParc; i++){
+            parcela = null;
+            parcela = new Parcela();
+            parcela.setValorParc(valorParcelas);
+            c.set(Calendar.MONTH, c.get(Calendar.MONTH) + 1);
+            parcela.setDataParc(new SimpleDateFormat("dd/MM/yyyy").format(c.getTime()));
+            parcelasPed.add(parcela);
+        }
         
         System.out.println("Código do pedido: 1\n"
                 + "Data: " + p.getData() + "\n"
@@ -68,9 +96,13 @@ public class AcademiaHybris {
                 for(int i=0; i<itensPed.size(); i++){
                     itemPedido = new ItemPedido();
                     itemPedido = (ItemPedido) itensPed.get(i);
-                    System.out.println(itemPedido.getProduto() + "- R$ " + itemPedido.getValor());
+                    System.out.println(itemPedido.getProduto() + " - R$ " + itemPedido.getValor());
                 }
-                System.out.println("Parcelas: " + "parcelas");
+                for(int i=0; i<parcelasPed.size(); i++){
+                    parcela = new Parcela();
+                    parcela = (Parcela) parcelasPed.get(i);
+                    System.out.println("parcela" + (i+1) + " " + parcela.getDataParc() + " - R$ " + parcela.getValorParc());
+                }
                 System.out.println("Valor total: " + total);
     }
     

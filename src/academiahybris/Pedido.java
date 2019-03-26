@@ -17,7 +17,7 @@ public class Pedido {
     private String nomeCliente;
     private String endereco;
     private ArrayList<ItemPedido> itens;
-    private Integer parcelas;
+    private ArrayList<Parcela> parcelas;
 
     public String getData() {
         return data;
@@ -51,11 +51,11 @@ public class Pedido {
         this.itens = itens;
     }
 
-    public Integer getParcelas() {
+    public ArrayList<Parcela> getParcelas() {
         return parcelas;
     }
 
-    public void setParcelas(Integer parcelas) {
+    public void setParcelas(ArrayList<Parcela> parcelas) {
         this.parcelas = parcelas;
     }
 }
