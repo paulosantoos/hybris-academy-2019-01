@@ -13,15 +13,11 @@
 
     <!--service-->
     <bean id="userService" class="com.academia.hybris.service.impl.DefaultUserService"/>
-    <bean id="orderIteService" class="com.academia.hybris.service.impl.DefaultOrderItemService"/>
-    <bean id="orderService" class="com.academia.hybris.service.impl.DefaultOrderService"/>
     <bean id="productService" class="com.academia.hybris.service.impl.DefaultProductService"/>
 
 
     <!--dao-->
     <bean id="userDao" class="com.academia.hybris.dao.impl.DefaultUserDao"/>
-    <bean id="orderDao" class="com.academia.hybris.dao.impl.DefaultOrderDao"/>
-    <bean id="orderItemDao" class="com.academia.hybris.dao.impl.DefaultOrderItemDao"/>
     <bean id="productDao" class="com.academia.hybris.dao.impl.DefaultProductDao"/>
 
 
